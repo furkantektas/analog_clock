@@ -109,29 +109,26 @@ class _AnalogClockState extends State<AnalogClock> {
       child: Center(
           child: AspectRatio(
               aspectRatio: 1.0,
-              child: Padding(
-                padding: const EdgeInsets.all(60),
-                child: new Container(
-                    constraints:
-                        BoxConstraints(minWidth: 48.0, minHeight: 48.0),
-                    width: double.infinity,
-                    child: new CustomPaint(
-                      painter: new AnalogClockPainter(
-                          datetime: datetime,
-                          showDigitalClock: widget.showDigitalClock,
-                          showTicks: widget.showTicks,
-                          showNumbers: widget.showNumbers,
-                          showAllNumbers: widget.showAllNumbers,
-                          showSecondHand: widget.showSecondHand,
-                          hourHandColor: widget.hourHandColor,
-                          minuteHandColor: widget.minuteHandColor,
-                          secondHandColor: widget.secondHandColor,
-                          tickColor: widget.tickColor,
-                          digitalClockColor: widget.digitalClockColor,
-                          textScaleFactor: widget.textScaleFactor,
-                          numberColor: widget.numberColor),
-                    )),
-              ))),
+              child: new Container(
+                  constraints:
+                      BoxConstraints(minWidth: 48.0, minHeight: 48.0),
+                  width: double.infinity,
+                  child: new CustomPaint(
+                    painter: new AnalogClockPainter(
+                        datetime: datetime,
+                        showDigitalClock: widget.showDigitalClock,
+                        showTicks: widget.showTicks,
+                        showNumbers: widget.showNumbers,
+                        showAllNumbers: widget.showAllNumbers,
+                        showSecondHand: widget.showSecondHand,
+                        hourHandColor: widget.hourHandColor,
+                        minuteHandColor: widget.minuteHandColor,
+                        secondHandColor: widget.secondHandColor,
+                        tickColor: widget.tickColor,
+                        digitalClockColor: widget.digitalClockColor,
+                        textScaleFactor: widget.textScaleFactor,
+                        numberColor: widget.numberColor),
+                  )))),
     );
   }
 }
