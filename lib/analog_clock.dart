@@ -110,8 +110,7 @@ class _AnalogClockState extends State<AnalogClock> {
           child: AspectRatio(
               aspectRatio: 1.0,
               child: new Container(
-                  constraints:
-                      BoxConstraints(minWidth: 48.0, minHeight: 48.0),
+                  constraints: BoxConstraints(minWidth: 48.0, minHeight: 48.0),
                   width: double.infinity,
                   child: new CustomPaint(
                     painter: new AnalogClockPainter(

@@ -73,7 +73,6 @@ class AnalogClockPainter extends CustomPainter {
         fontWeight: FontWeight.bold,
         fontSize: 18.0 * scaleFactor * textScaleFactor);
     double p = 4.0;
-    print(scaleFactor);
     if (showTicks) p += 24.0;
     Offset paddingX = Offset(p * scaleFactor, 0.0);
     Offset paddingY = Offset(0.0, p * scaleFactor);
