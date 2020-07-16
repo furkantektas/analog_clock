@@ -8,6 +8,7 @@ class AnalogClockPainter extends CustomPainter {
   final bool showNumbers;
   final bool showAllNumbers;
   final bool showSecondHand;
+  final bool useMilitaryTime;
   final Color hourHandColor;
   final Color minuteHandColor;
   final Color secondHandColor;
@@ -36,7 +37,8 @@ class AnalogClockPainter extends CustomPainter {
       this.digitalClockColor = Colors.black,
       this.numberColor = Colors.black,
       this.showAllNumbers = false,
-      this.textScaleFactor = 1.0});
+      this.textScaleFactor = 1.0 
+      this.useMilitaryTime});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -45,7 +47,7 @@ class AnalogClockPainter extends CustomPainter {
     if (showTicks) _paintTickMarks(canvas, size, scaleFactor);
     if (showNumbers) _drawIndicators(canvas, size, scaleFactor);
     if (showAllNumbers) _drawAllIndicators(canvas, size, scaleFactor);
-    if (showDigitalClock) _paintDigitalClock(canvas, size, scaleFactor);
+    if (showDigitalClock) _paintDigitalClock(canvas, size, scaleFactor, useMilitaryTime);
 
     _paintClockHands(canvas, size, scaleFactor);
     _paintPinHole(canvas, size, scaleFactor);
@@ -305,8 +307,12 @@ class AnalogClockPainter extends CustomPainter {
           handPaint..color = secondHandColor);
   }
 
-  void _paintDigitalClock(Canvas canvas, Size size, double scaleFactor) {
-    String hour = datetime.hour.toString().padLeft(2, "0");
+  void _paintDigitalClock(Canvas canvas, Size size, double scaleFactor, bool useMilitaryTime) {
+    int hourInt = datetime.hour;
+    if (hourInt > 12 && !useMilitaryTime) {
+      hourInt = hourInt - 12;
+    }
+    String hour = hourInt.toString().padLeft(2, "0");
     String minute = datetime.minute.toString().padLeft(2, "0");
     String second = datetime.second.toString().padLeft(2, "0");
     TextSpan digitalClockSpan = new TextSpan(
