@@ -10,6 +10,7 @@ class AnalogClock extends StatefulWidget {
   final bool showNumbers;
   final bool showAllNumbers;
   final bool showSecondHand;
+  final bool useMilitaryTime;
   final Color hourHandColor;
   final Color minuteHandColor;
   final Color secondHandColor;
@@ -29,6 +30,7 @@ class AnalogClock extends StatefulWidget {
       this.showNumbers = true,
       this.showSecondHand = true,
       this.showAllNumbers = false,
+      this.useMilitaryTime = false,
       this.hourHandColor = Colors.black,
       this.minuteHandColor = Colors.black,
       this.secondHandColor = Colors.redAccent,
@@ -51,6 +53,7 @@ class AnalogClock extends StatefulWidget {
       showNumbers = true,
       showAllNumbers = false,
       showSecondHand = true,
+      useMilitaryTime = false,
       width = double.infinity,
       height = double.infinity,
       decoration = const BoxDecoration(),
@@ -62,6 +65,7 @@ class AnalogClock extends StatefulWidget {
             showNumbers: showNumbers,
             showAllNumbers: showAllNumbers,
             showSecondHand: showSecondHand,
+            useMilitaryTime: useMilitaryTime,
             width: width,
             height: height,
             hourHandColor: Colors.white,
@@ -120,6 +124,7 @@ class _AnalogClockState extends State<AnalogClock> {
                         showNumbers: widget.showNumbers,
                         showAllNumbers: widget.showAllNumbers,
                         showSecondHand: widget.showSecondHand,
+                        useMilitaryTime: widget.useMilitaryTime,
                         hourHandColor: widget.hourHandColor,
                         minuteHandColor: widget.minuteHandColor,
                         secondHandColor: widget.secondHandColor,
