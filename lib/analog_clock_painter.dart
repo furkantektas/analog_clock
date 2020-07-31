@@ -309,8 +309,14 @@ class AnalogClockPainter extends CustomPainter {
 
   void _paintDigitalClock(Canvas canvas, Size size, double scaleFactor, bool useMilitaryTime) {
     int hourInt = datetime.hour;
-    if (hourInt > 12 && !useMilitaryTime) {
-      hourInt = hourInt - 12;
+    String meridiem = '';
+    if (!useMilitaryTime) {
+      if (hourInt > 12) {
+        hourInt = hourInt - 12;
+        meridiem = ' PM';
+      } else {
+        meridiem = ' AM';
+      }
     }
     String hour = hourInt.toString().padLeft(2, "0");
     String minute = datetime.minute.toString().padLeft(2, "0");
@@ -319,7 +325,7 @@ class AnalogClockPainter extends CustomPainter {
         style: TextStyle(
             color: digitalClockColor,
             fontSize: 18 * scaleFactor * textScaleFactor),
-        text: "$hour:$minute:$second");
+        text: "$hour:$minute:$second$meridiem");
     TextPainter digitalClockTP = new TextPainter(
         text: digitalClockSpan,
         textAlign: TextAlign.center,
