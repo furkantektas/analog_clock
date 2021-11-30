@@ -5,7 +5,8 @@ author: Furkan Tektas <tektasfurkan@gmail.com>
 homepage: https://github.com/furkantektas/analog_clock
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
+  flutter: ">=1.17.0"
 
 dependencies:
   flutter:
@@ -16,6 +17,3 @@ dev_dependencies:
     sdk: flutter
 
 flutter:
-  plugin:
-    androidPackage: flutter.furkantektas.com.analog_clock
-    pluginClass: AnalogClockPlugin
