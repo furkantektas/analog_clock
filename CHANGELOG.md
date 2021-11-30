@@ -1,16 +1,21 @@
-## 0.0.1
+# Changelog
 
-* Fully working version without tests.
+## 0.0.5
 
-## 0.0.2
+* Added support to nullsafety dart
 
-* Fixing Dart Pub link.
+## 0.0.4
+
+* Migrating example project to AndroidX and fixing kotlin bug.
 
 ## 0.0.3
 
 * Ability to showing all the numbers around the clock and bumping up the kotlin version thanks to @pidmid
 
+## 0.0.2
 
-## 0.0.4
+* Fixing Dart Pub link.
 
-* Migrating example project to AndroidX and fixing kotlin bug.
+## 0.0.1
+
+* Fully working version without tests.
