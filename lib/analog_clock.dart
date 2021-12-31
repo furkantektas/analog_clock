@@ -1,10 +1,12 @@
+library analog_clock;
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:analog_clock/analog_clock_painter.dart';
 
 class AnalogClock extends StatefulWidget {
-  final DateTime datetime;
+  final DateTime? datetime;
   final bool showDigitalClock;
   final bool showTicks;
   final bool showNumbers;
@@ -42,7 +44,7 @@ class AnalogClock extends StatefulWidget {
       this.height = double.infinity,
       this.decoration = const BoxDecoration(),
       isLive,
-      Key key})
+      Key? key})
       : this.isLive = isLive ?? (datetime == null),
         super(key: key);
 
@@ -57,7 +59,7 @@ class AnalogClock extends StatefulWidget {
       width = double.infinity,
       height = double.infinity,
       decoration = const BoxDecoration(),
-      Key key})
+      Key? key})
       : this(
             datetime: datetime,
             showDigitalClock: showDigitalClock,

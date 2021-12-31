@@ -25,7 +25,7 @@ class AnalogClockPainter extends CustomPainter {
   static const double STROKE_WIDTH = 3.0;
 
   AnalogClockPainter(
-      {@required this.datetime,
+      {required this.datetime,
       this.showDigitalClock = true,
       this.showTicks = true,
       this.showNumbers = true,
@@ -56,7 +56,7 @@ class AnalogClockPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(AnalogClockPainter oldDelegate) {
-    return oldDelegate?.datetime?.isBefore(datetime) ?? true;
+    return oldDelegate.datetime.isBefore(datetime);
   }
 
   _paintPinHole(canvas, size, scaleFactor) {
