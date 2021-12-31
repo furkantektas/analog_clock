@@ -37,8 +37,8 @@ class AnalogClockPainter extends CustomPainter {
       this.digitalClockColor = Colors.black,
       this.numberColor = Colors.black,
       this.showAllNumbers = false,
-      this.textScaleFactor = 1.0 
-      this.useMilitaryTime});
+      this.textScaleFactor = 1.0,
+      this.useMilitaryTime = true});
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -47,7 +47,8 @@ class AnalogClockPainter extends CustomPainter {
     if (showTicks) _paintTickMarks(canvas, size, scaleFactor);
     if (showNumbers) _drawIndicators(canvas, size, scaleFactor);
     if (showAllNumbers) _drawAllIndicators(canvas, size, scaleFactor);
-    if (showDigitalClock) _paintDigitalClock(canvas, size, scaleFactor, useMilitaryTime);
+    if (showDigitalClock)
+      _paintDigitalClock(canvas, size, scaleFactor, useMilitaryTime);
 
     _paintClockHands(canvas, size, scaleFactor);
     _paintPinHole(canvas, size, scaleFactor);
@@ -307,7 +308,8 @@ class AnalogClockPainter extends CustomPainter {
           handPaint..color = secondHandColor);
   }
 
-  void _paintDigitalClock(Canvas canvas, Size size, double scaleFactor, bool useMilitaryTime) {
+  void _paintDigitalClock(
+      Canvas canvas, Size size, double scaleFactor, bool useMilitaryTime) {
     int hourInt = datetime.hour;
     String meridiem = '';
     if (!useMilitaryTime) {
