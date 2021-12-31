@@ -1,8 +1,11 @@
 # Changelog
 
+## 0.1.0
+
+* Null safety support (thanks to [@andersonfds](https://github.com/andersonfds))
 ## 0.0.5
 
-* Added support to nullsafety dart
+* Added military time support (thanks to [@KaeganClark](https://github.com/KaeganClark))
 
 ## 0.0.4
 
@@ -10,7 +13,7 @@
 
 ## 0.0.3
 
-* Ability to showing all the numbers around the clock and bumping up the kotlin version thanks to @pidmid
+* Ability to showing all the numbers around the clock and bumping up the kotlin version (thanks to [@pidmid](https://github.com/pidmid))
 
 ## 0.0.2
 
