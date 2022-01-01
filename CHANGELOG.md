@@ -1,8 +1,9 @@
 # Changelog
 
 ## 0.1.1
-* Fix: Clock updates when datetime manually set.
-* Fix: Add `didUpdateWidget` to painter (thanks to [@JayDev43](https://github.com/JayDev43))
+* Fix: [#6](https://github.com/furkantektas/analog_clock/issues/6) Clock updates when datetime manually set.
+* Fix: Add `didUpdateWidget` to painter [#13](https://github.com/furkantektas/analog_clock/issues/13) (thanks to [@JayDev43](https://github.com/JayDev43))
+* Fix: [#7](https://github.com/furkantektas/analog_clock/issues/7) Mispositioned hour indicators when all indicators are shown and ticks are hidden.
 
 ## 0.1.0
 
