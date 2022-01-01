@@ -84,16 +84,21 @@ class AnalogClock extends StatefulWidget {
 }
 
 class _AnalogClockState extends State<AnalogClock> {
+  DateTime initialDatetime; // to keep track of time changes
   DateTime datetime;
-
-  _AnalogClockState(datetime) : this.datetime = datetime ?? DateTime.now();
+  Duration updateDuration = const Duration(seconds: 1); // repaint frequency
+  _AnalogClockState(datetime)
+      : this.datetime = datetime ?? DateTime.now(),
+        initialDatetime = datetime ?? DateTime.now();
 
   initState() {
     super.initState();
+    // don't repaint the clock every second if second hand is not shown
+    updateDuration =
+        widget.showSecondHand ? Duration(seconds: 1) : Duration(minutes: 1);
+
     if (widget.isLive) {
       // update clock every second or minute based on second hand's visibility.
-      Duration updateDuration =
-          widget.showSecondHand ? Duration(seconds: 1) : Duration(minutes: 1);
       Timer.periodic(updateDuration, update);
     }
   }
@@ -101,7 +106,7 @@ class _AnalogClockState extends State<AnalogClock> {
   update(Timer timer) {
     if (mounted) {
       // update is only called on live clocks. So, it's safe to update datetime.
-      datetime = DateTime.now();
+      this.datetime = this.initialDatetime.add(updateDuration * timer.tick);
       setState(() {});
     }
   }
@@ -136,5 +141,15 @@ class _AnalogClockState extends State<AnalogClock> {
                         numberColor: widget.numberColor),
                   )))),
     );
+  }
+
+  @override
+  void didUpdateWidget(AnalogClock oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (!widget.isLive && widget.datetime != oldWidget.datetime) {
+      datetime = widget.datetime ?? DateTime.now();
+      datetime = DateTime.now();
+    }
   }
 }

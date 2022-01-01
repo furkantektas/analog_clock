@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.1
+* Fix: Clock updates when datetime manually set.
+* Fix: Add `didUpdateWidget` to painter (thanks to [@JayDev43](https://github.com/JayDev43))
+
 ## 0.1.0
 
 * Null safety support (thanks to [@andersonfds](https://github.com/andersonfds))
