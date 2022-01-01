@@ -8,10 +8,12 @@ void runDemo() async {
 
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.landscapeLeft, DeviceOrientation.landscapeRight]);
-  runApp(DemoApp());
+  runApp(const DemoApp());
 }
 
 class DemoApp extends StatefulWidget {
+  const DemoApp({Key? key}) : super(key: key);
+
   @override
   _DemoAppState createState() => _DemoAppState();
 }
@@ -23,7 +25,7 @@ class _DemoAppState extends State<DemoApp> {
       home: Scaffold(
         body: Container(
           decoration: const BoxDecoration(
-              gradient: const LinearGradient(
+              gradient: LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   colors: [Colors.amberAccent, Colors.amber])),
@@ -44,19 +46,21 @@ class _DemoAppState extends State<DemoApp> {
   }
 
   Widget get lightClock => AnalogClock(
-        decoration: BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+        decoration:
+            const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
         width: 150.0,
         showNumbers: false,
         showDigitalClock: false,
         datetime: DateTime(2019, 1, 1, 10, 10, 35),
-        key: GlobalObjectKey(1),
+        key: const GlobalObjectKey(1),
       );
 
   Widget get darkClock => AnalogClock.dark(
       width: 250.0,
       datetime: DateTime(2019, 1, 1, 12, 15, 45),
-      key: GlobalObjectKey(2),
-      decoration: BoxDecoration(color: Colors.black, shape: BoxShape.circle));
+      key: const GlobalObjectKey(2),
+      decoration:
+          const BoxDecoration(color: Colors.black, shape: BoxShape.circle));
 
   Widget get simpleClock => AnalogClock(
         decoration: BoxDecoration(
@@ -74,6 +78,6 @@ class _DemoAppState extends State<DemoApp> {
         showTicks: false,
         showDigitalClock: false,
         datetime: DateTime(2019, 1, 1, 9, 12, 15),
-        key: GlobalObjectKey(3),
+        key: const GlobalObjectKey(3),
       );
 }
