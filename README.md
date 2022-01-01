@@ -12,7 +12,7 @@ In your `pubspec.yaml` file within your Flutter Project:
 
 ```yaml
 dependencies:
-  analog_clock: ^0.0.1
+  analog_clock: ^0.1.0
 ```
 
 ## Features
@@ -40,6 +40,7 @@ AnalogClock(
 	showSecondHand: false,
 	numberColor: Colors.black87,
 	showNumbers: true,
+	showAllNumbers: false,
 	textScaleFactor: 1.4,
 	showTicks: false,
 	showDigitalClock: false,
