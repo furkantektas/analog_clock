@@ -1,6 +1,6 @@
 name: analog_clock
 description: Flutter Analog Clock plugin.
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/furkantektas/analog_clock
 
 environment:
