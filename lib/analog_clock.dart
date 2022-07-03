@@ -150,7 +150,6 @@ class _AnalogClockState extends State<AnalogClock> {
 
     if (!widget.isLive && widget.datetime != oldWidget.datetime) {
       datetime = widget.datetime ?? DateTime.now();
-      datetime = DateTime.now();
     }
   }
 }
