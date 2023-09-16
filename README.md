@@ -44,7 +44,7 @@ AnalogClock(
 	textScaleFactor: 1.4,
 	showTicks: false,
 	showDigitalClock: false,
-	datetime: DateTime(2019, 1, 1, 9, 12, 15),
+	dateTime: DateTime(2019, 1, 1, 9, 12, 15),
 	);
 ```
 

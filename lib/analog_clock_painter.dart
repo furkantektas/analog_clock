@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 class AnalogClockPainter extends CustomPainter {
-  DateTime datetime;
+  DateTime dateTime;
   final bool showDigitalClock;
   final bool showTicks;
   final bool showNumbers;
@@ -17,15 +17,15 @@ class AnalogClockPainter extends CustomPainter {
   final Color numberColor;
   final double textScaleFactor;
 
-  static const double BASE_SIZE = 320.0;
-  static const double MINUTES_IN_HOUR = 60.0;
-  static const double SECONDS_IN_MINUTE = 60.0;
-  static const double HOURS_IN_CLOCK = 12.0;
-  static const double HAND_PIN_HOLE_SIZE = 8.0;
-  static const double STROKE_WIDTH = 3.0;
+  static const double baseSize = 320.0;
+  static const double minutesInHour = 60.0;
+  static const double secondsInMinute = 60.0;
+  static const double hoursInClock = 12.0;
+  static const double handPinHoleSize = 8.0;
+  static const double strokeWidth = 3.0;
 
   AnalogClockPainter(
-      {required this.datetime,
+      {required this.dateTime,
       this.showDigitalClock = true,
       this.showTicks = true,
       this.showNumbers = true,
@@ -42,15 +42,16 @@ class AnalogClockPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    double scaleFactor = size.shortestSide / BASE_SIZE;
+    double scaleFactor = size.shortestSide / baseSize;
 
     if (showTicks) _paintTickMarks(canvas, size, scaleFactor);
     if (showNumbers) {
       _drawIndicators(canvas, size, scaleFactor, showAllNumbers);
     }
 
-    if (showDigitalClock)
+    if (showDigitalClock) {
       _paintDigitalClock(canvas, size, scaleFactor, useMilitaryTime);
+    }
 
     _paintClockHands(canvas, size, scaleFactor);
     _paintPinHole(canvas, size, scaleFactor);
@@ -58,18 +59,18 @@ class AnalogClockPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(AnalogClockPainter oldDelegate) {
-    return oldDelegate.datetime.isBefore(datetime);
+    return oldDelegate.dateTime.isBefore(dateTime);
   }
 
   _paintPinHole(canvas, size, scaleFactor) {
     Paint midPointStrokePainter = Paint()
       ..color = showSecondHand ? secondHandColor : minuteHandColor
-      ..strokeWidth = STROKE_WIDTH * scaleFactor
+      ..strokeWidth = strokeWidth * scaleFactor
       ..isAntiAlias = true
       ..style = PaintingStyle.stroke;
 
-    canvas.drawCircle(size.center(Offset.zero),
-        HAND_PIN_HOLE_SIZE * scaleFactor, midPointStrokePainter);
+    canvas.drawCircle(size.center(Offset.zero), handPinHoleSize * scaleFactor,
+        midPointStrokePainter);
   }
 
   void _drawIndicators(
@@ -89,8 +90,8 @@ class AnalogClockPainter extends CustomPainter {
       double angle = (h * pi / 6) - pi / 2; //+ pi / 2;
       Offset offset =
           Offset(longHandLength * cos(angle), longHandLength * sin(angle));
-      TextSpan span = new TextSpan(style: style, text: h.toString());
-      TextPainter tp = new TextPainter(
+      TextSpan span = TextSpan(style: style, text: h.toString());
+      TextPainter tp = TextPainter(
           text: span,
           textAlign: TextAlign.center,
           textDirection: TextDirection.ltr);
@@ -157,31 +158,31 @@ class AnalogClockPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.bevel
-      ..strokeWidth = STROKE_WIDTH * scaleFactor;
-    double seconds = datetime.second / SECONDS_IN_MINUTE;
-    double minutes = (datetime.minute + seconds) / MINUTES_IN_HOUR;
-    double hour = (datetime.hour + minutes) / HOURS_IN_CLOCK;
+      ..strokeWidth = strokeWidth * scaleFactor;
+    double seconds = dateTime.second / secondsInMinute;
+    double minutes = (dateTime.minute + seconds) / minutesInHour;
+    double hour = (dateTime.hour + minutes) / hoursInClock;
 
     canvas.drawLine(
-        size.center(_getHandOffset(hour, HAND_PIN_HOLE_SIZE * scaleFactor)),
+        size.center(_getHandOffset(hour, handPinHoleSize * scaleFactor)),
         size.center(_getHandOffset(hour, shortHandLength)),
         handPaint..color = hourHandColor);
 
     canvas.drawLine(
-        size.center(_getHandOffset(minutes, HAND_PIN_HOLE_SIZE * scaleFactor)),
+        size.center(_getHandOffset(minutes, handPinHoleSize * scaleFactor)),
         size.center(_getHandOffset(minutes, longHandLength)),
         handPaint..color = minuteHandColor);
-    if (showSecondHand)
+    if (showSecondHand) {
       canvas.drawLine(
-          size.center(
-              _getHandOffset(seconds, HAND_PIN_HOLE_SIZE * scaleFactor)),
+          size.center(_getHandOffset(seconds, handPinHoleSize * scaleFactor)),
           size.center(_getHandOffset(seconds, longHandLength)),
           handPaint..color = secondHandColor);
+    }
   }
 
   void _paintDigitalClock(
       Canvas canvas, Size size, double scaleFactor, bool useMilitaryTime) {
-    int hourInt = datetime.hour;
+    int hourInt = dateTime.hour;
     String meridiem = '';
     if (!useMilitaryTime) {
       if (hourInt > 12) {
@@ -192,14 +193,14 @@ class AnalogClockPainter extends CustomPainter {
       }
     }
     String hour = hourInt.toString().padLeft(2, "0");
-    String minute = datetime.minute.toString().padLeft(2, "0");
-    String second = datetime.second.toString().padLeft(2, "0");
-    TextSpan digitalClockSpan = new TextSpan(
+    String minute = dateTime.minute.toString().padLeft(2, "0");
+    String second = dateTime.second.toString().padLeft(2, "0");
+    TextSpan digitalClockSpan = TextSpan(
         style: TextStyle(
             color: digitalClockColor,
             fontSize: 18 * scaleFactor * textScaleFactor),
         text: "$hour:$minute:$second$meridiem");
-    TextPainter digitalClockTP = new TextPainter(
+    TextPainter digitalClockTP = TextPainter(
         text: digitalClockSpan,
         textAlign: TextAlign.center,
         textDirection: TextDirection.ltr);
