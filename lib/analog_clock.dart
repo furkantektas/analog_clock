@@ -1,4 +1,5 @@
 library analog_clock;
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'analog_clock_painter.dart';
@@ -82,12 +83,12 @@ class AnalogClock extends StatefulWidget {
 }
 
 class _AnalogClockState extends State<AnalogClock> {
-  DateTime initialDatetime; // to keep track of time changes
+  DateTime initialDateTime; // to keep track of time changes
   DateTime dateTime;
   Duration updateDuration = const Duration(seconds: 1); // repaint frequency
   _AnalogClockState(dateTime)
       : dateTime = dateTime ?? DateTime.now(),
-        initialDatetime = dateTime ?? DateTime.now();
+        initialDateTime = dateTime ?? DateTime.now();
 
   @override
   initState() {
@@ -106,7 +107,7 @@ class _AnalogClockState extends State<AnalogClock> {
   update(Timer timer) {
     if (mounted) {
       // update is only called on live clocks. So, it's safe to update dateTime.
-      dateTime = initialDatetime.add(updateDuration * timer.tick);
+      dateTime = initialDateTime.add(updateDuration * timer.tick);
       setState(() {});
     }
   }
