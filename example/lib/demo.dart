@@ -51,13 +51,13 @@ class _DemoAppState extends State<DemoApp> {
         width: 150.0,
         showNumbers: false,
         showDigitalClock: false,
-        datetime: DateTime(2019, 1, 1, 10, 10, 35),
+        dateTime: DateTime(2019, 1, 1, 10, 10, 35),
         key: const GlobalObjectKey(1),
       );
 
   Widget get darkClock => AnalogClock.dark(
       width: 250.0,
-      datetime: DateTime(2019, 1, 1, 12, 15, 45),
+      dateTime: DateTime(2019, 1, 1, 12, 15, 45),
       key: const GlobalObjectKey(2),
       decoration:
           const BoxDecoration(color: Colors.black, shape: BoxShape.circle));
@@ -77,7 +77,7 @@ class _DemoAppState extends State<DemoApp> {
         textScaleFactor: 1.4,
         showTicks: false,
         showDigitalClock: false,
-        datetime: DateTime(2019, 1, 1, 9, 12, 15),
+        dateTime: DateTime(2019, 1, 1, 9, 12, 15),
         key: const GlobalObjectKey(3),
       );
 }
