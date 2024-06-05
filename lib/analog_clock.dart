@@ -23,6 +23,7 @@ class AnalogClock extends StatefulWidget {
   final double textScaleFactor;
   final double width;
   final double height;
+  final double strokeWidth;
   final BoxDecoration decoration;
 
   // Allows user to animate the second hand
@@ -43,6 +44,7 @@ class AnalogClock extends StatefulWidget {
       this.digitalClockColor = Colors.black,
       this.numberColor = Colors.black,
       this.textScaleFactor = 1.0,
+      this.strokeWidth = 3.0,
       this.width = double.infinity,
       this.height = double.infinity,
       this.animateSecondHand = false,
@@ -135,6 +137,7 @@ class _AnalogClockState extends State<AnalogClock> {
                     painter: new AnalogClockPainter(
                       datetime: datetime,
                       showDigitalClock: widget.showDigitalClock,
+                      strokeWidth: widget.strokeWidth,
                       showTicks: widget.showTicks,
                       showNumbers: widget.showNumbers,
                       showAllNumbers: widget.showAllNumbers,

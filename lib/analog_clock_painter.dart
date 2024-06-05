@@ -17,6 +17,7 @@ class AnalogClockPainter extends CustomPainter {
   final Color numberColor;
   final double textScaleFactor;
   final bool animateSecondHand;
+  final double strokeWidth;
 
   static const double BASE_SIZE = 320.0;
   static const double MINUTES_IN_HOUR = 60.0;
@@ -24,7 +25,6 @@ class AnalogClockPainter extends CustomPainter {
   static const double MILLISECONDS_IN_MINUTE = SECONDS_IN_MINUTE * 1000;
   static const double HOURS_IN_CLOCK = 12.0;
   static const double HAND_PIN_HOLE_SIZE = 8.0;
-  static const double STROKE_WIDTH = 3.0;
 
   AnalogClockPainter({
     required this.datetime,
@@ -42,6 +42,7 @@ class AnalogClockPainter extends CustomPainter {
     this.textScaleFactor = 1.0,
     this.useMilitaryTime = true,
     required this.animateSecondHand,
+    required this.strokeWidth,
   });
 
   @override
@@ -68,7 +69,7 @@ class AnalogClockPainter extends CustomPainter {
   _paintPinHole(canvas, size, scaleFactor) {
     Paint midPointStrokePainter = Paint()
       ..color = showSecondHand ? secondHandColor : minuteHandColor
-      ..strokeWidth = STROKE_WIDTH * scaleFactor
+      ..strokeWidth = strokeWidth * scaleFactor
       ..isAntiAlias = true
       ..style = PaintingStyle.stroke;
 
@@ -161,7 +162,7 @@ class AnalogClockPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.bevel
-      ..strokeWidth = STROKE_WIDTH * scaleFactor;
+      ..strokeWidth = strokeWidth * scaleFactor;
     double milliseconds =
         animateSecondHand ? (datetime.millisecond / MILLISECONDS_IN_MINUTE) : 0;
     double seconds = (datetime.second / SECONDS_IN_MINUTE);
