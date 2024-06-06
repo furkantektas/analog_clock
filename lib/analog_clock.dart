@@ -1,12 +1,11 @@
 library analog_clock;
 
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:analog_clock/analog_clock_painter.dart';
+import 'analog_clock_painter.dart';
 
 class AnalogClock extends StatefulWidget {
-  final DateTime? datetime;
+  final DateTime? dateTime;
   final bool showDigitalClock;
   final bool showTicks;
   final bool showNumbers;
@@ -26,7 +25,7 @@ class AnalogClock extends StatefulWidget {
   final BoxDecoration decoration;
 
   const AnalogClock(
-      {this.datetime,
+      {this.dateTime,
       this.showDigitalClock = true,
       this.showTicks = true,
       this.showNumbers = true,
@@ -45,11 +44,11 @@ class AnalogClock extends StatefulWidget {
       this.decoration = const BoxDecoration(),
       isLive,
       Key? key})
-      : this.isLive = isLive ?? (datetime == null),
+      : isLive = isLive ?? (dateTime == null),
         super(key: key);
 
   const AnalogClock.dark(
-      {datetime,
+      {dateTime,
       showDigitalClock = true,
       showTicks = true,
       showNumbers = true,
@@ -61,7 +60,7 @@ class AnalogClock extends StatefulWidget {
       decoration = const BoxDecoration(),
       Key? key})
       : this(
-            datetime: datetime,
+            dateTime: dateTime,
             showDigitalClock: showDigitalClock,
             showTicks: showTicks,
             showNumbers: showNumbers,
@@ -80,23 +79,24 @@ class AnalogClock extends StatefulWidget {
             key: key);
 
   @override
-  _AnalogClockState createState() => _AnalogClockState(datetime);
+  _AnalogClockState createState() => _AnalogClockState(dateTime);
 }
 
 class _AnalogClockState extends State<AnalogClock> {
-  DateTime initialDatetime; // to keep track of time changes
-  DateTime datetime;
+  DateTime initialDateTime; // to keep track of time changes
+  DateTime dateTime;
   Duration updateDuration = const Duration(seconds: 1); // repaint frequency
-  _AnalogClockState(datetime)
-      : this.datetime = datetime ?? DateTime.now(),
-        initialDatetime = datetime ?? DateTime.now();
+  _AnalogClockState(dateTime)
+      : dateTime = dateTime ?? DateTime.now(),
+        initialDateTime = dateTime ?? DateTime.now();
 
+  @override
   initState() {
     super.initState();
     // repaint the clock every second if second-hand or digital-clock are shown
     updateDuration = widget.showSecondHand || widget.showDigitalClock
-        ? Duration(seconds: 1)
-        : Duration(minutes: 1);
+        ? const Duration(seconds: 1)
+        : const Duration(minutes: 1);
 
     if (widget.isLive) {
       // update clock every second or minute based on second hand's visibility.
@@ -106,8 +106,8 @@ class _AnalogClockState extends State<AnalogClock> {
 
   update(Timer timer) {
     if (mounted) {
-      // update is only called on live clocks. So, it's safe to update datetime.
-      this.datetime = this.initialDatetime.add(updateDuration * timer.tick);
+      // update is only called on live clocks. So, it's safe to update dateTime.
+      dateTime = initialDateTime.add(updateDuration * timer.tick);
       setState(() {});
     }
   }
@@ -121,12 +121,13 @@ class _AnalogClockState extends State<AnalogClock> {
       child: Center(
           child: AspectRatio(
               aspectRatio: 1.0,
-              child: new Container(
-                  constraints: BoxConstraints(minWidth: 48.0, minHeight: 48.0),
+              child: Container(
+                  constraints:
+                      const BoxConstraints(minWidth: 48.0, minHeight: 48.0),
                   width: double.infinity,
-                  child: new CustomPaint(
-                    painter: new AnalogClockPainter(
-                        datetime: datetime,
+                  child: CustomPaint(
+                    painter: AnalogClockPainter(
+                        dateTime: dateTime,
                         showDigitalClock: widget.showDigitalClock,
                         showTicks: widget.showTicks,
                         showNumbers: widget.showNumbers,
@@ -148,8 +149,8 @@ class _AnalogClockState extends State<AnalogClock> {
   void didUpdateWidget(AnalogClock oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    if (!widget.isLive && widget.datetime != oldWidget.datetime) {
-      datetime = widget.datetime ?? DateTime.now();
+    if (!widget.isLive && widget.dateTime != oldWidget.dateTime) {
+      dateTime = widget.dateTime ?? DateTime.now();
     }
   }
 }
