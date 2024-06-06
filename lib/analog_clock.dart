@@ -23,7 +23,11 @@ class AnalogClock extends StatefulWidget {
   final double textScaleFactor;
   final double width;
   final double height;
+  final double strokeWidth;
   final BoxDecoration decoration;
+
+  // Allows user to animate the second hand
+  final bool animateSecondHand;
 
   const AnalogClock(
       {this.datetime,
@@ -40,8 +44,10 @@ class AnalogClock extends StatefulWidget {
       this.digitalClockColor = Colors.black,
       this.numberColor = Colors.black,
       this.textScaleFactor = 1.0,
+      this.strokeWidth = 3.0,
       this.width = double.infinity,
       this.height = double.infinity,
+      this.animateSecondHand = false,
       this.decoration = const BoxDecoration(),
       isLive,
       Key? key})
@@ -56,6 +62,7 @@ class AnalogClock extends StatefulWidget {
       showAllNumbers = false,
       showSecondHand = true,
       useMilitaryTime = true,
+      animateSecondHand = false,
       width = double.infinity,
       height = double.infinity,
       decoration = const BoxDecoration(),
@@ -95,7 +102,9 @@ class _AnalogClockState extends State<AnalogClock> {
     super.initState();
     // repaint the clock every second if second-hand or digital-clock are shown
     updateDuration = widget.showSecondHand || widget.showDigitalClock
-        ? Duration(seconds: 1)
+        ? widget.animateSecondHand
+            ? Duration(milliseconds: 50)
+            : Duration(seconds: 1)
         : Duration(minutes: 1);
 
     if (widget.isLive) {
@@ -126,20 +135,23 @@ class _AnalogClockState extends State<AnalogClock> {
                   width: double.infinity,
                   child: new CustomPaint(
                     painter: new AnalogClockPainter(
-                        datetime: datetime,
-                        showDigitalClock: widget.showDigitalClock,
-                        showTicks: widget.showTicks,
-                        showNumbers: widget.showNumbers,
-                        showAllNumbers: widget.showAllNumbers,
-                        showSecondHand: widget.showSecondHand,
-                        useMilitaryTime: widget.useMilitaryTime,
-                        hourHandColor: widget.hourHandColor,
-                        minuteHandColor: widget.minuteHandColor,
-                        secondHandColor: widget.secondHandColor,
-                        tickColor: widget.tickColor,
-                        digitalClockColor: widget.digitalClockColor,
-                        textScaleFactor: widget.textScaleFactor,
-                        numberColor: widget.numberColor),
+                      datetime: datetime,
+                      showDigitalClock: widget.showDigitalClock,
+                      strokeWidth: widget.strokeWidth,
+                      showTicks: widget.showTicks,
+                      showNumbers: widget.showNumbers,
+                      showAllNumbers: widget.showAllNumbers,
+                      showSecondHand: widget.showSecondHand,
+                      useMilitaryTime: widget.useMilitaryTime,
+                      hourHandColor: widget.hourHandColor,
+                      minuteHandColor: widget.minuteHandColor,
+                      secondHandColor: widget.secondHandColor,
+                      tickColor: widget.tickColor,
+                      digitalClockColor: widget.digitalClockColor,
+                      textScaleFactor: widget.textScaleFactor,
+                      numberColor: widget.numberColor,
+                      animateSecondHand: widget.animateSecondHand,
+                    ),
                   )))),
     );
   }

@@ -16,29 +16,34 @@ class AnalogClockPainter extends CustomPainter {
   final Color digitalClockColor;
   final Color numberColor;
   final double textScaleFactor;
+  final bool animateSecondHand;
+  final double strokeWidth;
 
   static const double BASE_SIZE = 320.0;
   static const double MINUTES_IN_HOUR = 60.0;
   static const double SECONDS_IN_MINUTE = 60.0;
+  static const double MILLISECONDS_IN_MINUTE = SECONDS_IN_MINUTE * 1000;
   static const double HOURS_IN_CLOCK = 12.0;
   static const double HAND_PIN_HOLE_SIZE = 8.0;
-  static const double STROKE_WIDTH = 3.0;
 
-  AnalogClockPainter(
-      {required this.datetime,
-      this.showDigitalClock = true,
-      this.showTicks = true,
-      this.showNumbers = true,
-      this.showSecondHand = true,
-      this.hourHandColor = Colors.black,
-      this.minuteHandColor = Colors.black,
-      this.secondHandColor = Colors.redAccent,
-      this.tickColor = Colors.grey,
-      this.digitalClockColor = Colors.black,
-      this.numberColor = Colors.black,
-      this.showAllNumbers = false,
-      this.textScaleFactor = 1.0,
-      this.useMilitaryTime = true});
+  AnalogClockPainter({
+    required this.datetime,
+    this.showDigitalClock = true,
+    this.showTicks = true,
+    this.showNumbers = true,
+    this.showSecondHand = true,
+    this.hourHandColor = Colors.black,
+    this.minuteHandColor = Colors.black,
+    this.secondHandColor = Colors.redAccent,
+    this.tickColor = Colors.grey,
+    this.digitalClockColor = Colors.black,
+    this.numberColor = Colors.black,
+    this.showAllNumbers = false,
+    this.textScaleFactor = 1.0,
+    this.useMilitaryTime = true,
+    required this.animateSecondHand,
+    required this.strokeWidth,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -64,7 +69,7 @@ class AnalogClockPainter extends CustomPainter {
   _paintPinHole(canvas, size, scaleFactor) {
     Paint midPointStrokePainter = Paint()
       ..color = showSecondHand ? secondHandColor : minuteHandColor
-      ..strokeWidth = STROKE_WIDTH * scaleFactor
+      ..strokeWidth = strokeWidth * scaleFactor
       ..isAntiAlias = true
       ..style = PaintingStyle.stroke;
 
@@ -157,8 +162,10 @@ class AnalogClockPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.bevel
-      ..strokeWidth = STROKE_WIDTH * scaleFactor;
-    double seconds = datetime.second / SECONDS_IN_MINUTE;
+      ..strokeWidth = strokeWidth * scaleFactor;
+    double milliseconds =
+        animateSecondHand ? (datetime.millisecond / MILLISECONDS_IN_MINUTE) : 0;
+    double seconds = (datetime.second / SECONDS_IN_MINUTE);
     double minutes = (datetime.minute + seconds) / MINUTES_IN_HOUR;
     double hour = (datetime.hour + minutes) / HOURS_IN_CLOCK;
 
@@ -173,9 +180,9 @@ class AnalogClockPainter extends CustomPainter {
         handPaint..color = minuteHandColor);
     if (showSecondHand)
       canvas.drawLine(
-          size.center(
-              _getHandOffset(seconds, HAND_PIN_HOLE_SIZE * scaleFactor)),
-          size.center(_getHandOffset(seconds, longHandLength)),
+          size.center(_getHandOffset(
+              seconds + milliseconds, HAND_PIN_HOLE_SIZE * scaleFactor)),
+          size.center(_getHandOffset(seconds + milliseconds, longHandLength)),
           handPaint..color = secondHandColor);
   }
 
